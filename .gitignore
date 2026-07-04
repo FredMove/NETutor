@@ -1,0 +1,53 @@
+# Секретные файлы и переменные окружения
+.env
+
+# Виртуальные окружения
+venv/
+.venv/
+env/
+ENV/
+
+# Кэш Python и скомпилированные файлы
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Артефакты сборки
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Файлы тестирования и покрытия
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+.pytest_cache/
+
+# Журналы (логи)
+logs/
+*.log
+
+# Переменные IDE, локальные файлы настроек
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
