@@ -1,0 +1,17 @@
+services:
+  kafka:
+    image: confluentinc/cp-kafka:7.6.1
+    container_name: netutor-kafka
+    hostname: netutor-kafka
+    ports:
+      - "9092:9092"
+      - "9094:9094"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker, controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@netutor-kafka:9093"
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092, CONTROLLER://0.0.0.0:9093, OUTSIDELISTENER://0.0.0.0:9094
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://netutor-kafka:9092, OUTSIDELISTENER://localhost:9094
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT, PLAINTEXT:PLAINTEXT, OUTSIDELISTENER:PLAINTEXT
+      CLUSTER_ID: fPTcz25MQ_O5wl5-bS_CWQ
