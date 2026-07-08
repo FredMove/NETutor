@@ -11,7 +11,7 @@ public class KafkaProducerService {
     }
 
     public void sendMessage(String topic, QuestionDTO message){
-        kafkaTemplate.send(topic, message).whenComplete((result, ex) -> {
+        kafkaTemplate.send(topic, message).whenComplete((result, ex) -> { //.whenComplete гарантирует выполнение только после получения брокером сообщения
             if (ex != null) {
                 System.out.println("Ошибка отправки: " + ex.getMessage());
             } else {
