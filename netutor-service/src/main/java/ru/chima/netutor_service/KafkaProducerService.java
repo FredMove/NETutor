@@ -3,15 +3,25 @@ package ru.chima.netutor_service;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class KafkaProducerService {
-    private final KafkaTemplate<String, QuestionDTO> kafkaTemplate;
-    public KafkaProducerService(KafkaTemplate<String, QuestionDTO> kafkaTemplate){
+    private final KafkaTemplate<String, QuestionCorrelationDTO> kafkaTemplate;
+    private final CorrelationStore correlationStore;
+    public KafkaProducerService(KafkaTemplate<String, QuestionCorrelationDTO> kafkaTemplate, CorrelationStore correlationStore){
         this.kafkaTemplate = kafkaTemplate;
+        this.correlationStore = correlationStore;
     }
 
-    public void sendMessage(String topic, QuestionDTO message){
-        kafkaTemplate.send(topic, message).whenComplete((result, ex) -> { //.whenComplete гарантирует выполнение только после получения брокером сообщения
+    public String sendMessage(String topic, QuestionDTO message){
+
+        String correlationId = UUID.randomUUID().toString();
+        QuestionCorrelationDTO messageWithId = new QuestionCorrelationDTO(message.question(), correlationId);
+        correlationStore.putProcess(correlationId);
+
+
+        kafkaTemplate.send(topic, messageWithId).whenComplete((result, ex) -> { //.whenComplete гарантирует выполнение только после получения брокером сообщения
             if (ex != null) {
                 System.out.println("Ошибка отправки: " + ex.getMessage());
             } else {
@@ -19,5 +29,7 @@ public class KafkaProducerService {
             }
         });
         System.out.println("Message send");
+
+        return correlationId;
     }
 }

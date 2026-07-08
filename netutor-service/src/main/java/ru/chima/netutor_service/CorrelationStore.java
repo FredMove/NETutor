@@ -8,11 +8,15 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CorrelationStore {
     private final ConcurrentHashMap<String, String> store = new ConcurrentHashMap<>();
 
-    public void put(String correlationId, String status){
-        store.put(correlationId, status);
+    public void putProcess(String correlationId){
+        store.put(correlationId, "");
     }
 
-    public void get(String correlationId){
-        store.get(correlationId);
+    public void putAnswer(String correlationId, String answer){
+        store.put(correlationId, answer);
+    }
+
+    public String get(String correlationId){
+        return store.get(correlationId);
     }
 }

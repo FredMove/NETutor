@@ -17,7 +17,7 @@ import java.util.Map;
 @Configuration
 public class KafkaProducerConfig {
     @Bean
-    public ProducerFactory<String, QuestionDTO> producerFactory(){
+    public ProducerFactory<String, QuestionCorrelationDTO> producerFactory(){
         Map<String, Object> producerConfigProps = new HashMap<>();
         producerConfigProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9094");
         producerConfigProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -26,7 +26,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, QuestionDTO> kafkaTemplate() {
+    public KafkaTemplate<String, QuestionCorrelationDTO> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory()); //Просто шаблон для отправки продюсером сообщения
     }
 
