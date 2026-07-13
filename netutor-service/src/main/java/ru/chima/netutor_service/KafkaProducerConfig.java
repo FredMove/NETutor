@@ -37,7 +37,8 @@ public class KafkaProducerConfig {
         consumerConfigProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         consumerConfigProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JacksonJsonDeserializer.class);
         consumerConfigProps.put(JacksonJsonDeserializer.TRUSTED_PACKAGES, "*"); //У Jackson по умолчанию стоит бан на все неизвестные пакеты
-        consumerConfigProps.put(ConsumerConfig.GROUP_ID_CONFIG, "netutor-message-listeners");
+        consumerConfigProps.put(ConsumerConfig.GROUP_ID_CONFIG, "spring-netutor-listeners");
+        consumerConfigProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest" );
         return new DefaultKafkaConsumerFactory<>(consumerConfigProps, new StringDeserializer(), new JacksonJsonDeserializer<>(AnswerDTO.class) );
     }
 

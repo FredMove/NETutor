@@ -5,10 +5,13 @@ from pydantic import BaseModel
 app = FastAPI()
 
 class Question(BaseModel):
-    question: str
+    question:str
+    correlationId:str
 
 class Answer(BaseModel):
     answer:str
+    correlationId:str
+
 
 @app.post("/ask")
 def ask(q: Question):
